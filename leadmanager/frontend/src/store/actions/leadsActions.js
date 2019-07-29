@@ -37,5 +37,13 @@ export const addLead = lead => dispatch => {
         }
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch({
+        type: Types.GET_ERRORS,
+        payload: {
+          msg: err.response.data,
+          status: err.response.status
+        }
+      });
+    });
 };

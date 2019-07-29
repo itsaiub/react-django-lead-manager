@@ -24,18 +24,18 @@ const Leads = props => {
         <tbody>
           {props.leads.map(lead => (
             <tr key={lead.id}>
-              <th>{lead.id}</th>
-              <th>{lead.name}</th>
-              <th>{lead.email}</th>
-              <th>{lead.message}</th>
-              <th>
+              <td>{lead.id}</td>
+              <td>{lead.name}</td>
+              <td>{lead.email}</td>
+              <td>{lead.message}</td>
+              <td>
                 <button
                   onClick={id => props.deleteLead(lead.id)}
                   className="btn btn-danger btn-sm"
                 >
                   Delete
                 </button>
-              </th>
+              </td>
             </tr>
           ))}
         </tbody>
