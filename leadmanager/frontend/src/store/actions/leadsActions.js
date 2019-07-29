@@ -13,3 +13,16 @@ export const getLeads = () => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+export const deleteLead = id => dispatch => {
+  Axios.delete(`api/leads/${id}/`)
+    .then(res => {
+      dispatch({
+        type: Types.DELETE_LEAD,
+        payload: {
+          id
+        }
+      });
+    })
+    .catch(err => console.log(err));
+};

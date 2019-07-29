@@ -11,6 +11,11 @@ const leadsReducer = (state = initialState, action) => {
         ...state,
         leads: action.payload.leads
       };
+    case Types.DELETE_LEAD:
+      return {
+        ...state,
+        leads: state.leads.filter(lead => lead.id !== action.payload.id)
+      };
     default:
       return {
         ...state
