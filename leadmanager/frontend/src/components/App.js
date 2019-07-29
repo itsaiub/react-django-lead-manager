@@ -1,12 +1,15 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Header from "./layout/Header";
+import Dashboard from "./leads/Dashboard";
 
 const App = () => {
   return (
-    <div>
+    <Fragment>
       <Header />
-      <h1>Hello World</h1>
-    </div>
+      <div className="container">
+        <Dashboard />
+      </div>
+    </Fragment>
   );
 };
 
