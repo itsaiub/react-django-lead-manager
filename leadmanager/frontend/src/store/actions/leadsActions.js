@@ -26,3 +26,16 @@ export const deleteLead = id => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+export const addLead = lead => dispatch => {
+  Axios.post(`api/leads/`, lead)
+    .then(res => {
+      dispatch({
+        type: Types.ADD_LEAD,
+        payload: {
+          lead: res.data
+        }
+      });
+    })
+    .catch(err => console.log(err));
+};

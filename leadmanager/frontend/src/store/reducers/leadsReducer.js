@@ -16,6 +16,11 @@ const leadsReducer = (state = initialState, action) => {
         ...state,
         leads: state.leads.filter(lead => lead.id !== action.payload.id)
       };
+    case Types.ADD_LEAD:
+      return {
+        ...state,
+        leads: [...state.leads, action.payload.lead]
+      };
     default:
       return {
         ...state
