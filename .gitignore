@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/django
 # Edit at https://www.gitignore.io/?templates=django
 
+### React ###
+node_modules
+
 ### Django ###
 *.log
 *.pot
@@ -128,7 +131,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
-
+.vscode
 # mypy
 .mypy_cache/
 .dmypy.json
