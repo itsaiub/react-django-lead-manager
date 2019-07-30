@@ -16,7 +16,6 @@ const Form = props => {
     setName("");
     setEmail("");
     setMessage("");
-    console.log(lead);
   };
 
   return (

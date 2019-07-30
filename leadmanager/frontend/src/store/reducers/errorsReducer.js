@@ -14,9 +14,7 @@ const errorsReducer = (state = initialState, action) => {
         status: action.payload.status
       };
     default:
-      return {
-        ...state
-      };
+      return state;
   }
 };
 

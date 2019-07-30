@@ -4,7 +4,7 @@ import { useAlert } from "react-alert";
 import PropTypes from "prop-types";
 
 const Alerts = props => {
-  const { error } = props;
+  const { error, message } = props;
   useEffect(() => {
     if (error.msg.name) {
       alert.error(`Name: ${error.msg.name.join()}`);
@@ -15,7 +15,13 @@ const Alerts = props => {
     if (error.msg.message) {
       alert.error(`Message: ${error.msg.message.join()}`);
     }
-  }, [error]);
+    if (message.deleteLead) {
+      alert.success(message.deleteLead);
+    }
+    if (message.addLead) {
+      alert.success(message.addLead);
+    }
+  }, [error, message]);
 
   const alert = useAlert();
 
@@ -24,12 +30,14 @@ const Alerts = props => {
 
 const mapStateToProps = state => {
   return {
-    error: state.errors
+    error: state.errors,
+    message: state.messages
   };
 };
 
 Alerts.propTypes = {
-  error: PropTypes.object.isRequired
+  error: PropTypes.object.isRequired,
+  message: PropTypes.object.isRequired
 };
 
 export default connect(
