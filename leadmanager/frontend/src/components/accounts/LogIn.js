@@ -1,14 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
+import { loginUser } from "../../store/actions/authAction";
 
-const LogIn = () => {
+const LogIn = ({ login, isAuthenticated }) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log("submit");
+    login(userName, password);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className="col-md-6 m-auto">
@@ -53,4 +60,24 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+LogIn.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (username, password) => dispatch(loginUser(username, password))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LogIn);

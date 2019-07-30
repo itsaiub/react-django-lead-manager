@@ -21,6 +21,9 @@ const Alerts = props => {
     if (message.addLead) {
       alert.success(message.addLead);
     }
+    if (error.msg.non_field_errors) {
+      alert.error(error.msg.non_field_errors.join());
+    }
   }, [error, message]);
 
   const alert = useAlert();
