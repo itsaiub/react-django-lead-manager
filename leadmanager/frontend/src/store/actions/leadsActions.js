@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { createMessage } from "./messagesAction";
+import { createMessage, returnErrors } from "./messagesAction";
 import * as Types from "./actionTypes";
 
 export const getLeads = () => dispatch => {
@@ -12,7 +12,9 @@ export const getLeads = () => dispatch => {
         }
       });
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 export const deleteLead = id => dispatch => {
@@ -40,13 +42,7 @@ export const addLead = lead => dispatch => {
         }
       });
     })
-    .catch(err => {
-      dispatch({
-        type: Types.GET_ERRORS,
-        payload: {
-          msg: err.response.data,
-          status: err.response.status
-        }
-      });
-    });
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };

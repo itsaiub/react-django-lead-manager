@@ -6,3 +6,13 @@ export const createMessage = msg => {
     payload: msg
   };
 };
+
+export const returnErrors = (msg, status) => {
+  return {
+    type: Types.GET_ERRORS,
+    payload: {
+      msg,
+      status
+    }
+  };
+};
