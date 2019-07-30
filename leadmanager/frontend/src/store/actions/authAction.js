@@ -2,6 +2,7 @@ import Axios from "axios";
 import * as Types from "./actionTypes";
 import { returnErrors } from "./messagesAction";
 
+// Load User
 export const loadUser = () => (dispatch, getState) => {
   // User Loading
   dispatch({
@@ -25,6 +26,7 @@ export const loadUser = () => (dispatch, getState) => {
     });
 };
 
+// Log In User
 export const loginUser = (username, password) => dispatch => {
   // Headers
   const config = {
@@ -54,8 +56,35 @@ export const loginUser = (username, password) => dispatch => {
     });
 };
 
-// Logout User
+// Register User
+export const registerUser = ({ userName, password, email }) => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  // Request Body
+  const body = JSON.stringify({ username: userName, password, email });
+  Axios.post(`/api/auth/register`, body, config)
+    .then(res => {
+      dispatch({
+        type: Types.REGISTER_SUCCESS,
+        payload: {
+          user: res.data.user,
+          token: res.data.token
+        }
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: Types.REGISTER_FAILED
+      });
+    });
+};
 
+// Logout User
 export const logoutUser = () => (dispatch, getState) => {
   Axios.post(`/api/auth/logout`, null, tokenConfig(getState))
     .then(res => {

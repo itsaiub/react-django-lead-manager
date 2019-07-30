@@ -24,6 +24,15 @@ const Alerts = props => {
     if (error.msg.non_field_errors) {
       alert.error(error.msg.non_field_errors.join());
     }
+    if (message.passwordNotMatch) {
+      alert.error(message.passwordNotMatch);
+    }
+    if (error.msg.username) {
+      alert.error(`Username: ${error.msg.username.join()}`);
+    }
+    if (error.msg.password) {
+      alert.error(`Password: ${error.msg.password.join()}`);
+    }
   }, [error, message]);
 
   const alert = useAlert();
