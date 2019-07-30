@@ -6,7 +6,7 @@ from .serializers import LeadSerializer
 
 
 class LeadViewSet(viewsets.ModelViewSet):
-    permissions_classes = [
+    permission_classes = [
         permissions.IsAuthenticated,
     ]
     serializer_class = LeadSerializer
