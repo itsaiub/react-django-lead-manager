@@ -5,6 +5,7 @@ import Dashboard from "./leads/Dashboard";
 import Alerts from "./layout/Alerts";
 import LogIn from "./accounts/LogIn";
 import Register from "./accounts/Register";
+import PrivateRoute from "./common/PrivateRoute";
 
 const App = () => {
   return (
@@ -13,7 +14,7 @@ const App = () => {
       <Alerts />
       <div className="container">
         <Switch>
-          <Route exact path="/" component={Dashboard} />
+          <PrivateRoute exact path="/" component={Dashboard} />
           <Route path="/login" component={LogIn} />
           <Route path="/register" component={Register} />
         </Switch>
