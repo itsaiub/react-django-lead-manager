@@ -52,7 +52,4 @@ Alerts.propTypes = {
   message: PropTypes.object.isRequired
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(Alerts);
+export default connect(mapStateToProps)(Alerts);

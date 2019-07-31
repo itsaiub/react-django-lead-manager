@@ -34,7 +34,6 @@ export const loginUser = (username, password) => dispatch => {
       "Content-Type": "application/json"
     }
   };
-
   // Request Body
   const body = JSON.stringify({ username, password });
 
@@ -91,6 +90,7 @@ export const logoutUser = () => (dispatch, getState) => {
       dispatch({
         type: Types.LOGOUT_SUCCESS
       });
+      // dispatch(getLeads());
     })
     .catch(err => {
       dispatch(returnErrors(err.response.data, err.response.status));

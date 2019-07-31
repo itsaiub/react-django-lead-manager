@@ -1,9 +1,10 @@
 import Axios from "axios";
-import { createMessage, returnErrors } from "./messagesAction";
+import { createMessage, returnErrors, deleteErrors } from "./messagesAction";
+import { tokenConfig } from "./authAction";
 import * as Types from "./actionTypes";
 
-export const getLeads = () => dispatch => {
-  Axios.get("/api/leads/")
+export const getLeads = () => (dispatch, getState) => {
+  Axios.get("/api/leads/", tokenConfig(getState))
     .then(res => {
       dispatch({
         type: Types.GET_LEADS,
@@ -12,14 +13,21 @@ export const getLeads = () => dispatch => {
         }
       });
     })
-    .catch(err =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+    .catch(err => {
+      dispatch({
+        type: Types.GET_LEADS,
+        payload: {
+          leads: []
+        }
+      });
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
 };
 
-export const deleteLead = id => dispatch => {
-  Axios.delete(`api/leads/${id}/`)
+export const deleteLead = id => (dispatch, getState) => {
+  Axios.delete(`api/leads/${id}/`, tokenConfig(getState))
     .then(res => {
+      dispatch(deleteErrors({}));
       dispatch(createMessage({ deleteLead: "Lead Deleted" }));
       dispatch({
         type: Types.DELETE_LEAD,
@@ -28,12 +36,16 @@ export const deleteLead = id => dispatch => {
         }
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch(createMessage({}));
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
 };
 
-export const addLead = lead => dispatch => {
-  Axios.post(`api/leads/`, lead)
+export const addLead = lead => (dispatch, getState) => {
+  Axios.post(`api/leads/`, lead, tokenConfig(getState))
     .then(res => {
+      dispatch(deleteErrors({}));
       dispatch(createMessage({ addLead: "Lead Added" }));
       dispatch({
         type: Types.ADD_LEAD,
@@ -42,7 +54,8 @@ export const addLead = lead => dispatch => {
         }
       });
     })
-    .catch(err =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+    .catch(err => {
+      dispatch(createMessage({}));
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
 };

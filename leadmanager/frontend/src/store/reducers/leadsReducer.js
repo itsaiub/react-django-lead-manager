@@ -22,9 +22,7 @@ const leadsReducer = (state = initialState, action) => {
         leads: [...state.leads, action.payload.lead]
       };
     default:
-      return {
-        ...state
-      };
+      return state;
   }
 };
 

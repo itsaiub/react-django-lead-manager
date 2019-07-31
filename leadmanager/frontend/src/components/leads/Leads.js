@@ -2,11 +2,16 @@ import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getLeads, deleteLead } from "../../store/actions/leadsActions";
+import { deleteErrors } from "../../store/actions/messagesAction";
 
 const Leads = props => {
   useEffect(() => {
-    props.getLeads();
-  }, []);
+    if (props.user) {
+      props.getLeads();
+      props.emptyError({});
+    }
+    return () => props.getLeads();
+  }, [props.user]);
 
   return (
     <Fragment>
@@ -46,20 +51,23 @@ const Leads = props => {
 
 const mapStateToProps = state => {
   return {
-    leads: state.leads.leads
+    leads: state.leads.leads,
+    user: state.auth.user
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     getLeads: () => dispatch(getLeads()),
-    deleteLead: id => dispatch(deleteLead(id))
+    deleteLead: id => dispatch(deleteLead(id)),
+    emptyError: err => dispatch(deleteErrors(err))
   };
 };
 
 Leads.propTypes = {
   leads: PropTypes.array.isRequired,
   getLeads: PropTypes.func.isRequired,
-  deleteLead: PropTypes.func.isRequired
+  deleteLead: PropTypes.func.isRequired,
+  emptyError: PropTypes.func
 };
 
 export default connect(

@@ -7,6 +7,13 @@ export const createMessage = msg => {
   };
 };
 
+export const deleteErrors = msg => {
+  return {
+    type: Types.DELETE_ERRORS,
+    payload: msg
+  };
+};
+
 export const returnErrors = (msg, status) => {
   return {
     type: Types.GET_ERRORS,

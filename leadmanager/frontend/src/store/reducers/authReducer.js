@@ -40,7 +40,8 @@ const authReducer = (state = initialState, action) => {
         ...state,
         user: action.payload.user,
         isAuthenticated: true,
-        isLoading: false
+        isLoading: false,
+        token: action.payload.token
       };
     default:
       return state;

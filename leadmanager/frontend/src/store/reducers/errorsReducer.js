@@ -13,6 +13,11 @@ const errorsReducer = (state = initialState, action) => {
         msg: action.payload.msg,
         status: action.payload.status
       };
+    case Types.DELETE_ERRORS:
+      return {
+        msg: {},
+        status: null
+      };
     default:
       return state;
   }
